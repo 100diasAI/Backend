@@ -91,7 +91,7 @@ router.put("/", async (req, res) => {
       },
     });
     var mailOptions = {
-      from: '"PRO-ROPA" <henrypfg11@gmail.com>',
+      from: '"Shopping Online" <henrypfg11@gmail.com>',
       to: mail,
       subject: "Cambio de estado en su pedido ✔",
       // text: "Tu pedido ha sido " + estado,

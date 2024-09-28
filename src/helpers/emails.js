@@ -15,13 +15,13 @@ const emailRegistro = async (data) => {
   });
 
   const info = await transport.sendMail({
-    from: "PRO-ROPA - E-commerce",
+    from: "Shopping Online - E-commerce",
     to: email,
-    subject: "PRO-ROPA - Comprueba tu cuenta",
-    text: "Comprueba tu cuenta en PRO-ROPA",
-    html: `<p>Hola : ${name}, Comprueba tu cuenta de PRO-ROPA</p>
+    subject: "Shopping Online - Comprueba tu cuenta",
+    text: "Comprueba tu cuenta en Shopping Online",
+    html: `<p>Hola : ${name}, Comprueba tu cuenta de Shopping Online</p>
     <p>Tu cuenta ya esta casi lista, solo debes confirmarla en el siguiente enlace: 
-        <a href="http://localhost:3000/confirmar/${token}">Confirmar cuenta</a>
+        <a href="https://shopping-online-production.up.railway.app/confirmar/${token}">Confirmar cuenta</a>
     </p>
     `,
   });
@@ -42,13 +42,13 @@ const emailOlvidePassword = async (data) => {
     });
   
     const info = await transport.sendMail({
-      from: "PRO-ROPA - E-commerce",
+      from: "Shopping Online - E-commerce",
       to: email,
-      subject: "PRO-ROPA - Reestablece tu Password",
+      subject: "Shopping Online - Reestablece tu Password",
       text: "Comprueba tu cuenta en Meli-Ropa",
-      html: `<p>Hola : ${name}, has solicitado reestablecer tu password en PRO-ROPA</p>
+      html: `<p>Hola : ${name}, has solicitado reestablecer tu password en Shopping Online</p>
       <p> Sigue el siguiente enlace para generar un nuevo password: 
-          <a href="http://localhost:3000/olvide-password/${token}">Reestablecer Password</a>
+          <a href="https://shopping-online-production.up.railway.app/olvide-password/${token}">Reestablecer Password</a>
       </p>
       `,
     });
