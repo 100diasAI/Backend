@@ -14,7 +14,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 
-const baseURL = FRONTEND_URL?.replace(/\/$/, "") || "http://localhost:3000"; // Elimina barra diagonal al final
+const baseURL = FRONTEND_URL?.replace(/\/$/, "") || "http://localhost:3000" || "https://shopping-online-production.up.railway.app/"; // Elimina barra diagonal al final
 const server = express();
 
 server.name = "API";
