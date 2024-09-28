@@ -4,30 +4,40 @@ const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const routes = require("./routes/index.js");
 const cookieSession = require("cookie-session");
-const cors = require("cors"); // Agregamos cors
+const cors = require("cors");
 const { FRONTEND_URL } = process.env;
 require("./db.js");
-
 
 const dotenv = require('dotenv');
 
 dotenv.config();
 
-
-const baseURL = FRONTEND_URL?.replace(/\/$/, "") || "http://localhost:3000" || "https://shopping-online-production.up.railway.app/"; // Elimina barra diagonal al final
 const server = express();
 
 server.name = "API";
 
+// Define allowed origins
+const allowedOrigins = [
+  'http://localhost:3000',
+  'https://shopping-online-production.up.railway.app',
+  // Add any other origins you want to allow
+];
+
 // Configuración de CORS
 const corsOptions = {
-  origin: baseURL, // Sin barra diagonal al final
-  credentials: true, // Permite envío de cookies
-  methods: "GET, POST, OPTIONS, PUT, DELETE", // Métodos permitidos
-  allowedHeaders: "Origin, X-Requested-With, Content-Type, Accept" // Cabeceras permitidas
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
+  methods: "GET, POST, OPTIONS, PUT, DELETE",
+  allowedHeaders: "Origin, X-Requested-With, Content-Type, Accept"
 };
 
-server.use(cors(corsOptions)); // Usamos cors como middleware
+server.use(cors(corsOptions));
 
 server.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
 server.use(bodyParser.json({ limit: "50mb" }));
