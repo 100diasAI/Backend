@@ -56,6 +56,18 @@
     "confirmado": true
   },
   {
+    "id": "hFLxCkmxGlVFkzPpy7af2b6Eeu02",
+    "nombre": "David",
+    "apellido": "Gomez",
+    "telefono": 3510000000,
+    "mail": "davidstangetz13@gmail.com",
+    "direccion": "El centro del país",
+    "dni": 39000000,
+    "contraseña": "admin",
+    "isAdmin": true,
+    "confirmado": true
+  },
+  {
     "id": "1IbHp9pvK6gNLNJOdoBLIPyreq72",
     "nombre": "Alan",
     "apellido": "Acevedo",
