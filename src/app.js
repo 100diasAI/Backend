@@ -19,7 +19,7 @@ server.name = "API";
 // Define allowed origins
 const allowedOrigins = [
   'http://localhost:3000',
-  'https://shopping-online-production.up.railway.app',
+  'https://shoppingonline-production.up.railway.app',
   // Add any other origins you want to allow
 ];
 
