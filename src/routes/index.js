@@ -3,6 +3,8 @@ const router = Router();
 
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
+const { verifyToken } = require('../middlewares/authJwt');
+const { chatbotResponse } = require('../controllers/chatbot.controller');
 
 const userRouter = require("./user.js");
 const productsRouter = require("./products");
@@ -95,5 +97,6 @@ router.use("/factura/crear", cargarFactura);
 router.use("/factura/edit", editarPedidoFactura);
 router.use("/ban", banRouter);
 router.use("/sucursales", getSucursales);
+router.post('/chatbot', verifyToken, chatbotResponse);
 
 module.exports = router;
