@@ -48,6 +48,8 @@ const editarPedidoFactura = require("./editarPedidoFactura");
 const { googleAuth } = require("../controllers/user.google.controller.js");
 const getSucursales = require("./getSucursales");
 const virtualTryOnRoutes = require('./virtualTryOn');
+const chatbotRouter = require("./chatbot");
+router.use("/chatbot", chatbotRouter);
 
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
