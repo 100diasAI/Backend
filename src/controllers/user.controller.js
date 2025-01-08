@@ -236,20 +236,52 @@ const nuevoPassword = async (req, res) => {
 };
 
 const isAuthenticated = async (req, res, next) => {
+  try {
+    // Si no hay token en las cookies
+    if (!req.cookies.jwt) {
+      return res.status(401).json({ Error: "Por favor inicie sesión" });
+    }
 
-  try{
-  const decode = await promisify(jwt.verify)(
-    req.cookies.jwt,
-    process.env.JWT_SECRET
-  );
-  const { id } = decode;
-  const user = await Usuario.findByPk(id);
-  if(!user) return res.send({Error: "Usuario no encontrado."})
-  if(user.banned) return res.send({Error: "Ese usuario está baneado."})
-  next()
-  }catch(e){
-    console.log(e)
-    res.send(e)
+    const decode = await promisify(jwt.verify)(
+      req.cookies.jwt,
+      process.env.JWT_SECRET
+    );
+
+    const { id } = decode;
+    const user = await Usuario.findByPk(id);
+
+    if (!user) {
+      return res.status(401).json({ Error: "Usuario no encontrado" });
+    }
+    if (user.banned) {
+      return res.status(403).json({ Error: "Usuario está baneado" });
+    }
+
+    // Renovar el token si está próximo a expirar (ej: menos de 7 días)
+    const tokenExp = new Date(decode.exp * 1000);
+    const now = new Date();
+    const daysUntilExpiration = (tokenExp - now) / (1000 * 60 * 60 * 24);
+
+    if (daysUntilExpiration < 7) {
+      const newToken = generarJWT(user.id);
+      res.cookie('jwt', newToken, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production'
+      });
+    }
+
+    // Agregar el usuario al request para uso posterior
+    req.user = user;
+    next();
+
+  } catch (error) {
+    if (error.name === 'TokenExpiredError') {
+      return res.status(401).json({ 
+        Error: "Sesión expirada, por favor inicie sesión nuevamente" 
+      });
+    }
+    console.log(error);
+    return res.status(401).json({ Error: "No autorizado" });
   }
 }
 
