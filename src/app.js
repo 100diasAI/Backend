@@ -34,7 +34,7 @@ const corsOptions = {
   },
   credentials: true,
   methods: "GET, POST, OPTIONS, PUT, DELETE",
-  allowedHeaders: "Origin, X-Requested-With, Content-Type, Accept"
+  allowedHeaders: "Origin, X-Requested-With, Content-Type, Accept, Authorization"
 };
 
 server.use(cors(corsOptions));

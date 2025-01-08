@@ -14,9 +14,11 @@ const openai = new OpenAI({
 const chatbotResponse = async (req, res) => {
   try {
     const { mensaje } = req.body;
+    console.log('Mensaje recibido:', mensaje);
     
-    // Obtenemos el contexto relevante para la pregunta
+    // El middleware ya verificó el token, así que podemos usar req.userId
     const contexto = await chatbotService.generarContexto(mensaje);
+    console.log('Contexto generado:', contexto);
 
     const completion = await openai.chat.completions.create({
       model: "gpt-4o-mini",
@@ -29,6 +31,7 @@ const chatbotResponse = async (req, res) => {
     });
 
     const respuesta = completion.choices[0].message.content;
+    console.log('Respuesta de OpenAI:', respuesta);
 
     res.json({ respuesta });
 
